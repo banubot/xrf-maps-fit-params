@@ -1,5 +1,5 @@
 '''
-08 Tune and train the multilayer perceptron model
+10 Tune and train the multilayer perceptron model
 '''
 import pandas as pd
 import numpy as np
@@ -7,7 +7,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import GridSearchCV
 import pickle
 
-spectra_normalized = pd.read_csv('./training_data/07_train_int_spectra.csv', header=None)
+spectra_normalized = pd.read_csv('./training_data/08_train_int_spectra.csv', header=None)
 fit_params_standard = pd.read_csv('./training_data/07_train_fit_params_standard.csv')
 fit_params_constant = pd.read_csv('./training_data/04_fit_params_constant.csv')
 
@@ -29,11 +29,11 @@ params = {
     "max_iter": [500, 1000, 5000],
 }
 
-search = GridSearchCV(regressor, params, n_jobs=-1, verbose=True, cv=3)
+search = GridSearchCV(regressor, params, n_jobs=-1, verbose=True, cv=5)
 search.fit(x_train, y_train)
 print(search.best_params_)
 
 model = search.best_estimator_
 # Save the best model to disk
-filename = '08_multilayer_perceptron.sav'
+filename = '10_multilayer_perceptron.sav'
 pickle.dump(model, open(filename, 'wb'))
